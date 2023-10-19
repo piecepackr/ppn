@@ -1,0 +1,37 @@
+Encoding: UTF-8
+Package: ppn
+Type: Package
+Title: Portable Piecepack Notation Parser
+Version: 0.1.0-1
+Authors@R: c(person("Trevor L", "Davis", role=c("aut", "cre"),
+             email="trevor.l.davis@gmail.com",
+             comment = c(ORCID = "0000-0001-6341-4639")))
+Description: Parse "Portable Piecepack Notation" files.  This allows you to visualize the moves for over one hundred board games.
+License: MIT + file LICENSE
+URL: https://github.com/piecepackr/ppn
+BugReports: https://github.com/piecepackr/ppn/issues
+LazyLoad: yes
+Depends: R (>= 3.4.0)
+Imports:
+    bracer (>= 1.2),
+    dplyr,
+    ppdf (>= 0.1.0-4),
+    rlang,
+    snakecase,
+    stringr,
+    tibble,
+    utils,
+    yaml
+Suggests:
+    argparse,
+    gifski,
+    knitr,
+    piecepackr (>= 1.10.1),
+    ppcli,
+    shiny,
+    testthat,
+    vdiffr,
+Remotes: piecepackr/ppcli, piecepackr/ppdf
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3

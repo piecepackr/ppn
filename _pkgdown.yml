@@ -1,0 +1,19 @@
+destination: "../../websites/R/ppn/"
+url: "https://trevorldavis.com/R/ppn"
+development:
+    mode: auto
+reference:
+    - title: "Read/write PPN"
+      desc: "Read/write games written in Portable Piecepack Notation (PPN) format"
+      contents:
+        - read_ppn
+    - title: "Visualize parsed game moves"
+    - desc: "Visualize moves in a parsed game"
+      contents:
+        - plot_move
+        - animate_game
+        - cat_move
+    - title: "Interactive PPN viewers"
+    - desc: "Interactively view/edit moves of a PPN game"
+      contents:
+        - view_game
