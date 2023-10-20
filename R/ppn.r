@@ -696,7 +696,7 @@ get_coords_from_piece_id <- function(piece_id, df, state = create_state(df)) {
     } else {
         indices <- get_indices_from_piece_id(piece_id, df, state)
         index <- tail(indices, 1L)
-        piecepackr:::Point2D$new(x=df$x[index], y=df$y[index])
+        affiner::as_coord2d(x=df$x[index], y=df$y[index])
     }
 }
 
@@ -761,8 +761,11 @@ process_rotate_move <- function(df, text, state = create_state(df), clockwise = 
     }
     angle <- ifelse(clockwise, -angle, angle)
     if (!is.null(location)) {
-        p <- piecepackr:::Point2D$new(x = df$x[indices], y = df$y[indices])
-        p <- p$translate(-location$x, -location$y)$rotate(angle)$translate(location$x, location$y)
+        p <- affiner::as_coord2d(x = df$x[indices], y = df$y[indices])
+        p$
+            translate(-location)$
+            rotate(affiner::angle(angle, "degrees"))$
+            translate(location)
         df$x[indices] <- p$x
         df$y[indices] <- p$y
     }
@@ -1183,16 +1186,17 @@ get_xy <- function(coords, df, state = create_state(tibble()), anchor_indices = 
         if (is.null(location)) {
             if (is.null(anchor_indices))
                 abort("Don't know where this location is relative to", class = "infer_location")
-            list(x = xy[1] + df$x[anchor_indices], y = xy[2] + df$y[anchor_indices])
+            affiner::as_coord2d(x = xy[1] + df$x[anchor_indices],
+                                y = xy[2] + df$y[anchor_indices])
         } else {
-            list(x = xy[1] + location$x, y = xy[2] + location$y)
+            affiner::as_coord2d(x = xy[1] + location$x, y = xy[2] + location$y)
         }
     } else if (str_detect(coords, "^[0-9]")) { # alternative relative moves
         coords <- convert_relative(coords)
         get_xy(coords, df, state, anchor_indices)
     } else {
-        p <- piecepackr:::Point2D$new(x = get_x(coords), y = get_y(coords))
-        p$dilate(state$scale_factor)
+        p <- affiner::as_coord2d(x = get_x(coords), y = get_y(coords))$
+            scale(state$scale_factor)
     }
     if (any(is.na(xy$x) | is.na(xy$y)))
         abort(paste("Failed to parse coordinates:", coords), class = "infer_location")
