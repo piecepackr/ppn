@@ -1,7 +1,7 @@
 # ppn
 
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/ppn)](https://cran.r-project.org/package=ppn)
-[![R-CMD-check](https://github.com/piecepackr/ppn/workflows/R-CMD-check/badge.svg)](https://github.com/piecepackr/ppn/actions)
+[![R-CMD-check](https://github.com/piecepackr/ppn/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/piecepackr/ppn/actions)
 [![codecov](https://codecov.io/github/piecepackr/ppn/branch/main/graph/badge.svg)](https://app.codecov.io/github/piecepackr/ppn)
 
 ### Table of Contents

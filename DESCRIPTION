@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: ppn
 Type: Package
 Title: Portable Piecepack Notation Parser
-Version: 0.1.0-2
-Authors@R: c(person("Trevor L", "Davis", role=c("aut", "cre"),
+Version: 0.1.0-3
+Authors@R: c(person("Trevor L.", "Davis", role=c("aut", "cre"),
              email="trevor.l.davis@gmail.com",
              comment = c(ORCID = "0000-0001-6341-4639")))
 Description: Parse "Portable Piecepack Notation" files.  This allows you to visualize the moves for over one hundred board games.
@@ -32,7 +32,7 @@ Suggests:
     shiny,
     testthat,
     vdiffr,
-Remotes: piecepackr/ppcli, piecepackr/ppdf, trevorld/affiner
+Remotes: piecepackr/ppcli, piecepackr/ppdf
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
