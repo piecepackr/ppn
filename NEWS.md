@@ -1,4 +1,4 @@
-ppn 0.1.0
+ppn 0.1.1
 =========
 
 Functions for reading/writing Portable Piecepack Notation (PPN) files:

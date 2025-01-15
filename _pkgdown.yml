@@ -2,6 +2,8 @@ destination: "../../websites/R/ppn/"
 url: "https://trevorldavis.com/R/ppn"
 development:
     mode: auto
+template:
+  bootstrap: 5
 reference:
     - title: "Read/write PPN"
       desc: "Read/write games written in Portable Piecepack Notation (PPN) format"
