@@ -50,7 +50,7 @@ if \code{"cartesian"} annotate the plot with \dQuote{cartesian} coordinates.}
 \item{ppi}{Resolution of animation in pixels per inch.
 By default set so image max 600 pixels wide or tall.}
 
-\item{bg}{Background color (\code{"transparent")} for transparent}
+\item{bg}{Background color (\code{"transparent"} for transparent)}
 
 \item{new_device}{If \code{file} is \code{NULL} should we open up a new graphics device?}
 

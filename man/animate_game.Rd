@@ -33,7 +33,7 @@ with \dQuote{algrebraic} coordinates,
 if \code{FALSE} or \code{"none"} don't annotate,
 if \code{"cartesian"} annotate the plot with \dQuote{cartesian} coordinates.}
 
-\item{...}{Arguments to \code{pmap_piece}}
+\item{...}{Arguments to \code{\link[piecepackr:pmap_piece]{pmap_piece()}}}
 
 \item{.f}{Low level graphics function to use e.g. \code{\link[piecepackr:grid.piece]{grid.piece()}}, \code{\link[piecepackr:piece3d]{piece3d()}}, \code{\link[piecepackr:piece]{piece()}}, or \code{\link[piecepackr:piece_mesh]{piece_mesh()}}.}
 

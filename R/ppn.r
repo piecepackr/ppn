@@ -1,9 +1,9 @@
 #' Read PPN files
 #'
 #' Read/write Portable Piecepack Notation (PPN) files
-#' @param file Filename, if "" will use \code{stdout()}
+#' @param file Filename, if "" will use `stdout()`
 #' @param parse Logical of whether to parse the moves in the ppn file
-#' @param games A list of parsed PPN games (as returned by \code{read_ppn()})
+#' @param games A list of parsed PPN games (as returned by `read_ppn()`)
 #' @return A list, for each game in the file a list containing info about the game
 #' @import stringr
 #' @examples
@@ -65,8 +65,8 @@ readlines_ppn <- function(file) {
 #
 # Parses (single) ppn game text to get Metadata and Movetext
 # @param text Character vector of ppn game text
-# @return A list with a named list element named \code{Metadata}
-#         and character vector element named \code{Movetext}
+# @return A list with a named list element named `Metadata`
+#         and character vector element named `Movetext`
 parse_ppn_game <- function(text, parse = TRUE) {
     l <- extract_metadata_movetext(text)
     if (parse) {
@@ -212,8 +212,8 @@ initialize_df <- function(df) {
 # Parse Movetext by Move number
 # @param text Character vector of Movetext
 # @param df Data frame containing starting state (inferred from Metadata)
-# @return A list with element \code{moves} containing
-#     named list (by move number) of move text and element \code{comments}
+# @return A list with element `moves` containing
+#     named list (by move number) of move text and element `comments`
 #     containing named list (by move number) of comments
 parse_moves <- function(text, df = NULL, state = create_state(df)) {
     if (is.null(df)) df <- initialize_df(df_none())
