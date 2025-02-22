@@ -3,9 +3,9 @@
 #' Plot game move
 #' @inheritParams animate_game
 #' @param ... Passed to [piecepackr::render_piece()]
-#' @param move Which move to plot game state (after the move, will use \code{game$dfs[[move]]})
-#'             unless \code{NULL} in which case will plot the game state after the last move.
-#' @param bg Background color (\code{"transparent")} for transparent
+#' @param move Which move to plot game state (after the move, will use `game$dfs[[move]]`)
+#'             unless `NULL` in which case will plot the game state after the last move.
+#' @param bg Background color (`"transparent"` for transparent)
 #' @return An invisible list of the dimensions of the image, as a side effect saves a graphic
 #' @import grDevices
 #' @export

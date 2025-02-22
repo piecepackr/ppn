@@ -5,7 +5,7 @@
 #'
 #' @param game A list containing a parsed ppn game (as parsed by [read_ppn()])
 #' @param move Which move to cat game state (after the move, will use `game$dfs[[move]]`)
-#'             unless \code{NULL} in which case will print the game state after the last move.
+#'             unless `NULL` in which case will print the game state after the last move.
 #' @param ... Passed to [ppcli::cat_piece()].
 #' @export
 cat_move <- function(game, move = NULL, ...) {
