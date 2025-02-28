@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: ppn
 Type: Package
 Title: Portable Piecepack Notation Parser
-Version: 0.1.2-1
+Version: 0.2.0-1
 Authors@R: c(person("Trevor L.", "Davis", role=c("aut", "cre"),
              email="trevor.l.davis@gmail.com",
              comment = c(ORCID = "0000-0001-6341-4639")))
@@ -27,12 +27,12 @@ Suggests:
     argparse,
     gifski,
     knitr,
-    piecepackr (>= 1.10.1),
+    piecepackr (>= 1.15.0-1),
     ppcli,
     shiny,
     testthat,
-    vdiffr,
-Remotes: piecepackr/ppcli, piecepackr/ppdf
+    vdiffr
+Remotes: piecepackr/piecepackr, piecepackr/ppcli, piecepackr/ppdf
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3

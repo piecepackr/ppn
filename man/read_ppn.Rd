@@ -23,12 +23,12 @@ A list, for each game in the file a list containing info about the game
 Read/write Portable Piecepack Notation (PPN) files
 }
 \examples{
- list.files(system.file("ppn", package = "ppn"))
- file <- system.file("ppn/tic-tac-toe.ppn", package = "ppn")
- games <- read_ppn(file)
- tmp <- tempfile(fileext = ".ppn")
- write_ppn(games, tmp)
- unlink(tmp)
+list.files(system.file("ppn", package = "ppn"))
+file <- system.file("ppn/tic-tac-toe.ppn", package = "ppn")
+games <- read_ppn(file)
+tmp <- tempfile(fileext = ".ppn")
+write_ppn(games, tmp)
+unlink(tmp)
 }
 \seealso{
 \code{\link[=plot_move]{plot_move()}}, \code{\link[=animate_game]{animate_game()}}, and \code{\link[=cat_move]{cat_move()}} for visualizing parsed ppn games.

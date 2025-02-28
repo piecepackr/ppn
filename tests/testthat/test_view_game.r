@@ -1,4 +1,6 @@
 test_that("view_game works as expected", {
+    do.call(rlang::local_options, default_options())
+
     g <- list(metadata = NULL, movetext = character())
     g <- append_to_ppn(g, "1. S@b2")
     expect_equal(nrow(g$dfs[["1."]]), 1)

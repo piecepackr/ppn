@@ -10,12 +10,16 @@ reference:
       contents:
         - read_ppn
     - title: "Visualize parsed game moves"
-    - desc: "Visualize moves in a parsed game"
+      desc: "Visualize moves in a parsed game"
       contents:
         - plot_move
         - animate_game
         - cat_move
     - title: "Interactive PPN viewers"
-    - desc: "Interactively view/edit moves of a PPN game"
+      desc: "Interactively view/edit moves of a PPN game"
       contents:
         - view_game
+    - title: "Movetext Parsers"
+      desc: "The movetext parsers included in this package"
+      contents:
+        - default_parser
