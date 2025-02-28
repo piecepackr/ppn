@@ -273,6 +273,25 @@
     Code
       cat(game_name, "\n")
     Output
+      spaiji 
+    Code
+      cat_move(game_var, ..., color = FALSE)
+    Output
+      ┌───────┐
+      │○ ○ ○ ○│
+      │ ● ● ● │
+      │● ● ○ ●│
+      │ ● ● ● │
+      │● ○ ○ ○│
+      │ ○ ● ○ │
+      │● ○ ● ○│
+      └───────┘
+
+---
+
+    Code
+      cat(game_name, "\n")
+    Output
       tic-tac-toe 
     Code
       cat_move(game_var, ..., color = FALSE)

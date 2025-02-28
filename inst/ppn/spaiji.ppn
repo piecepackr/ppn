@@ -1,0 +1,11 @@
+---
+GameType: Spaiji
+SetUp: Board
+MovetextParser: Marble
+...
+ 1. K@a1 W@c3  2. W@c1 K@a3  3. K@a5 W@b2
+ 4. K@e1 W@g1  5. W@e3 K@d2  6. K@c5 W@g3
+ 7. K@b4 W@c7  8. W@a7 K@b6  9. K@e5 W@d4 
+10. W@e7 K@d6 11. K@g5 W@f2 12. W@g7 K@f6
+13. W@c3 K@f4 14. K@c5 W@e3 15. W@e5 K@d4
+{ Black wins 11-7 }

@@ -1,6 +1,6 @@
 #' @importFrom dplyr bind_rows mutate
 #' @importFrom ppdf normalize_name
-#' @importFrom rlang %||% abort .data
+#' @importFrom rlang %||% .data abort check_dots_empty local_options
 #' @importFrom tibble tibble
 #' @importFrom utils hasName
 NULL

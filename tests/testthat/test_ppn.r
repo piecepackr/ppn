@@ -10,6 +10,7 @@ sf_verify <- function(game_var, ...) {
     })
 }
 test_that("parsing ppn files works as expected", {
+    do.call(rlang::local_options, default_options())
     skip_on_os("windows")
 
     # stored in inst/ppn
@@ -41,6 +42,9 @@ test_that("parsing ppn files works as expected", {
 
     relativity <- sf_read_ppn("relativity")
     sf_verify(relativity)
+
+    spaiji <- sf_read_ppn("spaiji")
+    sf_verify(spaiji)
 
     tic_tac_toe <- sf_read_ppn("tic-tac-toe")
     expect_true(any(grepl("2. S\\@c1 2... M\\@a3", tic_tac_toe$movetext)))
@@ -82,6 +86,8 @@ test_that("parsing ppn files works as expected", {
 
     null <- "---\nSetUp: Chess\nMovetextParser: 'Null'\n...\n1. b2-d2 1... g2-e2"
     parser_null <- function(...) list()
+    expect_warning(read_ppn(textConnection(null))[[1]])
+    null_parser <- function(...) list()
     g <- read_ppn(textConnection(null))[[1]]
     expect_length(g, 0L)
 
@@ -95,6 +101,8 @@ test_that("parsing ppn files works as expected", {
 })
 
 test_that("parsing simplified piece notation works as expected", {
+    do.call(rlang::local_options, default_options())
+
     t <- parse_piece("t")
     expect_equal(t$suit, 1)
     expect_equal(t$rank, 1)
@@ -351,7 +359,7 @@ test_that("parsing simplified piece notation works as expected", {
 
     df <- initialize_df(df_none())
     df <- process_move(df, "[X]@e5")
-    expect_equal(df$rank, 1L)
+    expect_equal(df$rank, 8L)
     expect_equal(df$suit, 3L)
     expect_equal(df$piece_side, "board_face")
     expect_equal(df$cfg, "checkers2")
@@ -359,14 +367,14 @@ test_that("parsing simplified piece notation works as expected", {
     # go
     df <- initialize_df(df_none())
     df <- process_move(df, "[#]@i9")
-    expect_equal(df$rank, 1L)
+    expect_equal(df$rank, 19L)
     expect_equal(df$suit, 2L)
     expect_equal(df$piece_side, "board_face")
     expect_equal(df$cfg, "go")
 
     df <- initialize_df(df_none())
     df <- process_move(df, "Y[#]@i9")
-    expect_equal(df$rank, 1L)
+    expect_equal(df$rank, 19L)
     expect_equal(df$suit, 5L)
     expect_equal(df$piece_side, "board_face")
     expect_equal(df$cfg, "go")
@@ -402,6 +410,8 @@ test_that("parsing algebraic coordinates works as expected", {
 })
 
 test_that("process_submove works as expected", {
+    do.call(rlang::local_options, default_options())
+
     expect_equal(process_submove(tibble(), ""), tibble())
 
     df <- ppdf::piecepack_four_field_kono()
@@ -426,6 +436,8 @@ test_that("process_submove works as expected", {
 })
 
 test_that("parse_moves works as expected", {
+    do.call(rlang::local_options, default_options())
+
     l <- parse_moves(c("S@b4", "M@b2"))
     df1 <- l$dfs[[2]]
     expect_equal(nrow(df1), 2)
@@ -441,6 +453,8 @@ test_that("parse_moves works as expected", {
 })
 
 test_that("^ notation works as expected", {
+    do.call(rlang::local_options, default_options())
+
     # refer to piece by id
     df <- initialize_df(df_none())
     state <- create_state(df)
@@ -469,6 +483,8 @@ test_that("^ notation works as expected", {
 })
 
 test_that("at move works with piece index", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     df <- process_move(df, "S@b2 M@b2 C@b2")
     expect_equal(get_id_from_piece_id("b2[3]", df), "1")
@@ -482,6 +498,8 @@ test_that("at move works with piece index", {
 })
 
 test_that("hyphen move works with piece index", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     df <- process_move(df, "S@b2 M@b2 C@b2 A@c3")
     df <- process_move(df, "c3-%b2[2]")
@@ -489,6 +507,8 @@ test_that("hyphen move works with piece index", {
 })
 
 test_that("underscore move works", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     df <- process_move(df, "S@b2 M@b2 C@b2 A@c3")
     df <- process_move(df, "b2[2]_c3")
@@ -500,6 +520,8 @@ test_that("underscore move works", {
 })
 
 test_that("backslash move works", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     df <- process_move(df, "S@b2 M@b2")
     df <- process_move(df, "C\\b2")
@@ -511,6 +533,8 @@ test_that("backslash move works", {
 })
 
 test_that("swap works as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     state <- create_state(df)
     df <- process_move(df, "S@b2 M@d4", state)
@@ -522,6 +546,8 @@ test_that("swap works as expected", {
 })
 
 test_that("rotations work as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     df <- process_move(df, "S@b2 b2@>45")
     expect_equal(df$angle, -45)
@@ -545,6 +571,7 @@ test_that("rotations work as expected", {
 })
 
 test_that("address works as expected", {
+    do.call(rlang::local_options, default_options())
 
     df <- read_ppn(textConnection("1. t@(1.5,1.5) S@{a,b}{1,2}"))[[1]]$dfs[[2]]
     expect_equal(mean(df$x), 1.5)
@@ -560,6 +587,8 @@ test_that("address works as expected", {
 })
 
 test_that("Identifying pieces with brackets works", {
+    do.call(rlang::local_options, default_options())
+
     expect_equal(get_indices_from_brackets("2:3"), 3:2)
     expect_equal(get_indices_from_brackets("2:3,1"), c(1, 3, 2))
     df <- initialize_df(df_none())
@@ -575,6 +604,8 @@ test_that("Identifying pieces with brackets works", {
 })
 
 test_that("Move multiple pieces works as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- tail(process_moves(tibble(), c("S@b2", "S@b2", "S@b2")), 1)[[1]]
     expect_equal(sum(near(df$x, 2)), 3)
     df <- process_submove(df, "2b2-c3")
@@ -599,6 +630,8 @@ test_that("Move multiple pieces works as expected", {
 })
 
 test_that("move numbers work as expected", {
+    do.call(rlang::local_options, default_options())
+
     ppn <- "---\n...\n1. S@b2;M@b3;C@b4 {what happens ; here?}"
     game <- read_ppn(textConnection(ppn))[[1]]
     expect_equal(names(game$moves), c("SetupFn.", "1.", "1..", "1..."))
@@ -609,6 +642,8 @@ test_that("move numbers work as expected", {
 
 
 test_that("non-greedy search works as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     state <- create_state(df)
     df <- process_move(df, "S4@b2 M3v@b4 dS4@b2", state)
@@ -629,6 +664,8 @@ test_that("non-greedy search works as expected", {
     expect_error(process_move(df, "3/tf-2R", state), "Failed to parse coordinates: /tf")
 })
 test_that("greedy search works as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- read_ppn(textConnection("1. S@{a..f}2"))[[1]]$dfs[[2]]
     expect_equal(nrow(df), 6)
     df <- process_move(df, "*?S")
@@ -638,6 +675,8 @@ test_that("greedy search works as expected", {
 })
 
 test_that("move chaining works as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     state <- create_state(df)
     expect_equal(state$active_id, character())
@@ -665,6 +704,8 @@ test_that("move chaining works as expected", {
 })
 
 test_that("relative moves work as expected", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     state <- create_state(df)
     expect_error(process_move(df, 'S"d4'), "Don't know how to handle move S\"d4")
@@ -713,6 +754,8 @@ test_that("relative moves work as expected", {
 })
 
 test_that("partial piece update (tilde)", {
+    do.call(rlang::local_options, default_options())
+
     df <- initialize_df(df_none())
     state <- create_state(df)
     df <- process_move(df, "S@b2", state)
@@ -751,6 +794,8 @@ test_that("partial piece update (tilde)", {
 })
 
 test_that("flipping pieces works", {
+    do.call(rlang::local_options, default_options())
+
     ps <- c("tile_face", "coin_back", "pawn_top", "pyramid_top", "pyramid_face",
             "tile_base", "card_left", "bit_right", "die_face")
     ps_flipped <- flip_ps(ps)
@@ -765,6 +810,8 @@ test_that("flipping pieces works", {
 })
 
 test_that("scale_factor works as expected", {
+    do.call(rlang::local_options, default_options())
+
     scale <- "MovetextParser:\n  Name: Default\n  ScaleFactor: 2\n...\n1. S@a2"
     df <- tail(read_ppn(textConnection(scale))[[1]]$dfs, 1)[[1]]
     expect_true(near(df$x, 2))
@@ -797,6 +844,8 @@ test_that("scale_factor works as expected", {
 })
 
 test_that("Setup and GameType work as expected", {
+    do.call(rlang::local_options, default_options())
+
     chess1 <- "GameType: Chess\n"
     df1 <- read_ppn(textConnection(chess1))[[1]]$dfs[[1]]
     chess2 <- "GameType:\n  Name: Chess\n"
@@ -842,6 +891,8 @@ test_that("Setup and GameType work as expected", {
 })
 
 test_that("ID computation works as expected", {
+    do.call(rlang::local_options, default_options())
+
     expect_equal(compute_plus_id(c("23", "24.2", "24..1.1", "30..2")), c("23.1", "24.3", "24..1.2", "30..2.1"))
     expect_equal(compute_equal_id(c("23", "24.2", "24..1.1", "30..2")), c("23..1", "24..1", "24..2", "30..3"))
 })

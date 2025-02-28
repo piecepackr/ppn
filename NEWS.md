@@ -1,3 +1,32 @@
+ppn 0.2.0 (development)
+=======================
+
+Deprecated features
+-------------------
+
+* Custom movetext parsers should now be of the form `name_parser()`
+  instead of `parser_name()`.
+
+New features
+------------
+
+* We now export (and document their arguments) the following movetext parsers
+
+  + `alquerque_parser()`
+  + `default_parser()`
+  + `marble_parser()`
+
+Bug fixes and minor improvements
+--------------------------------
+
+* The following tweaks to PPN:
+
+  + If a `PieceSpec` is missing `Piece` and is a colored suit
+    and it's side is not l, r, or x then it is now assumed to
+    be a "bit" (instead of a "tile").
+  + If a "marbles" "bit" is missing its rank assume that
+    its rank is `9L` (i.e. 1" marble).
+
 ppn 0.1.1
 =========
 

@@ -1,0 +1,14 @@
+---
+GameType: Spoff
+SetUp: Board
+MovetextParser: Marble
+...
+{ Example game from http://cambolbro.com/games/spoff/ }
+Setup. R@{a3,c3,e1,e5,g3} W@{a1,a5,c1,c5,c7,g5,g7} K@{a7,e3,e7,g1} .
+       R@{b2,d6,f2} K@{b6,d2,d4,f6} W@{b4,f4} .
+       R@c5 K@{c3,e3} W@e5 .
+       R@d4
+1. *{d4,f2} . e3-f2 2. *{b6,f2} . c5-b6 3. *{a1,e5} . b2-a1 c3-b2
+4. *{d2,f6} 5. *{b6,e1} 6. *{b4,f4} 7. *{b2,d4} 8. *{a3,d6}
+9. *{c5,g5} 10. *{a7,e7} 11. *{c7,g7} 12. *{a5,c1}
+13. *{a1,e5} 14. *{c3,g3} 15. *{e3,g1}
