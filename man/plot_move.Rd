@@ -17,7 +17,6 @@ plot_move(
   height = NULL,
   ppi = 72,
   bg = "white",
-  new_device = TRUE,
   annotation_scale = NULL
 )
 }
@@ -51,8 +50,6 @@ if \code{"cartesian"} annotate the plot with \dQuote{cartesian} coordinates.}
 By default set so image max 600 pixels wide or tall.}
 
 \item{bg}{Background color (\code{"transparent"} for transparent)}
-
-\item{new_device}{If \code{file} is \code{NULL} should we open up a new graphics device?}
 
 \item{annotation_scale}{Multiplicative factor that scales (stretches) any annotation coordinates.
 By default uses \code{attr(df, "scale_factor") \%||\% 1}.}

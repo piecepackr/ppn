@@ -18,7 +18,6 @@ animate_game(
   width = NULL,
   height = NULL,
   ppi = NULL,
-  new_device = TRUE,
   annotation_scale = NULL
 )
 }
@@ -33,7 +32,7 @@ with \dQuote{algrebraic} coordinates,
 if \code{FALSE} or \code{"none"} don't annotate,
 if \code{"cartesian"} annotate the plot with \dQuote{cartesian} coordinates.}
 
-\item{...}{Arguments to \code{\link[piecepackr:pmap_piece]{pmap_piece()}}}
+\item{...}{Passed to \code{\link[piecepackr:animate_piece]{piecepackr::animate_piece()}}}
 
 \item{.f}{Low level graphics function to use e.g. \code{\link[piecepackr:grid.piece]{grid.piece()}}, \code{\link[piecepackr:piece3d]{piece3d()}}, \code{\link[piecepackr:piece]{piece()}}, or \code{\link[piecepackr:piece_mesh]{piece_mesh()}}.}
 
@@ -54,8 +53,6 @@ how many transition frames to add between moves.}
 
 \item{ppi}{Resolution of animation in pixels per inch.
 By default set so image max 600 pixels wide or tall.}
-
-\item{new_device}{If \code{file} is \code{NULL} should we open up a new graphics device?}
 
 \item{annotation_scale}{Multiplicative factor that scales (stretches) any annotation coordinates.
 By default uses \code{attr(df, "scale_factor") \%||\% 1}.}
