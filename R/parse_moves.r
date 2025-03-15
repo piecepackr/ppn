@@ -144,6 +144,13 @@ standardize_piece_spec <- function(piece_spec) {
     } else if (str_detect(x, "\u26c0")) {
         x <- gsub("\u26c0", "Wc", x)
     }
+    if (str_detect(x, "\u26c3|\u26c1") && str_detect(x, "[RKGBYW]")) {
+        x <- gsub("\u26c3|\u26c1", "cf", x)
+    } else if (str_detect(x, "\u26c3")) {
+        x <- gsub("\u26c3", "Kcf", x)
+    } else if (str_detect(x, "\u26c1")) {
+        x <- gsub("\u26c1", "Wcf", x)
+    }
     # go
     if (!is.na(board <- str_extract(x, "\\[#]|\u25a6"))) {
         if (str_detect(x, "[RKGBYW]")) {

@@ -25,7 +25,9 @@ Bug fixes and minor improvements
     and it's side is not l, r, or x then it is now assumed to
     be a "bit" (instead of a "tile").
   + If a "marbles" "bit" is missing its rank assume that
-    its rank is `9L` (i.e. 1" marble).
+    its rank is `9L` (i.e. 1" marble when visualized by `{piecepackr}`).
+  + The Unicode symbols for checker kings (i.e. ⛁ and ⛃) are now interpreted
+    as checker bits *face* up (instead as not being interpreted as checker pieces at all).
 
 ppn 0.1.1
 =========
