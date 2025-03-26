@@ -3,6 +3,7 @@
 *.html
 *.pdf
 *.png
+*.swo
 *.swp
 
 codecov.yml

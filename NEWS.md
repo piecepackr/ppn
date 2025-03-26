@@ -10,7 +10,7 @@ Deprecated features
 New features
 ------------
 
-* We now export (and document their arguments) the following movetext parsers
+* We now export (and document their arguments) the following movetext parsers:
 
   + `alquerque_parser()`
   + `default_parser()`
@@ -28,6 +28,8 @@ Bug fixes and minor improvements
     its rank is `9L` (i.e. 1" marble when visualized by `{piecepackr}`).
   + The Unicode symbols for checker kings (i.e. ⛁ and ⛃) are now interpreted
     as checker bits *face* up (instead as not being interpreted as checker pieces at all).
+  + Now handles the Unicode symbols for rotated chess pieces.
+  + Now handles the Unicode symbols for "neutral" chess pieces (assigns to the suit `1L` aka the "red" suit).
 
 ppn 0.1.1
 =========

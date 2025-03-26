@@ -136,7 +136,8 @@ standardize_piece_spec <- function(piece_spec) {
     # piecepack ranks
     x <- gsub("n", "0", x)
     x <- gsub("a", "1", x)
-    # checkers
+
+    # checkers men
     if (str_detect(x, "\u26c2|\u26c0") && str_detect(x, "[RKGBYW]")) {
         x <- gsub("\u26c2|\u26c0", "c", x)
     } else if (str_detect(x, "\u26c2")) {
@@ -144,6 +145,7 @@ standardize_piece_spec <- function(piece_spec) {
     } else if (str_detect(x, "\u26c0")) {
         x <- gsub("\u26c0", "Wc", x)
     }
+    # checkers kings
     if (str_detect(x, "\u26c3|\u26c1") && str_detect(x, "[RKGBYW]")) {
         x <- gsub("\u26c3|\u26c1", "cf", x)
     } else if (str_detect(x, "\u26c3")) {
@@ -151,7 +153,7 @@ standardize_piece_spec <- function(piece_spec) {
     } else if (str_detect(x, "\u26c1")) {
         x <- gsub("\u26c1", "Wcf", x)
     }
-    # go
+    # go boards
     if (!is.na(board <- str_extract(x, "\\[#]|\u25a6"))) {
         if (str_detect(x, "[RKGBYW]")) {
             x <- gsub(board, "\u25a0", x)
@@ -160,6 +162,7 @@ standardize_piece_spec <- function(piece_spec) {
         }
         cfg <- "go"
     }
+    # dice
     if (!is.na(die <- str_extract(x, character_class(unicode_dice)))) {
         rank <- str_which(unicode_dice, die) + 1L
         if (str_detect(x, "[RKGBYW]")) {
@@ -168,46 +171,42 @@ standardize_piece_spec <- function(piece_spec) {
             x <- gsub(die, "Wd", x)
         }
     }
+    # playing cards
     if (!is.na(card <- str_extract(x, character_class(unicode_cards)))) {
         rank <- card2rank[[card]] + 1L
         suit <- card2suit[[card]]
         x <- gsub(card, "\U0001f0a0", x)
     }
-    if (!is.na(piece <- str_extract(x, character_class(unicode_chess_black)))) {
-        rank <- str_which(unicode_chess_black, piece) + 1
+    # chess
+    if (!is.na(piece <- str_extract(x, character_class(c(unicode_chess_pieces))))) {
+        rank <- ppdf::chess_rank(piece) + 1L
         if (!str_detect(x, "[RKGBYW]")) {
-            suit <- 2
+            suit <- ppdf::chess_suit(piece)
         }
+        if (!is.na(angle))
+            angle <- (angle + ppdf::chess_angle(piece)) %% 360
+        else
+            angle <- ppdf::chess_angle(piece)
         cfg <- "chess2"
+        # Turn into bit
         if (str_detect(x, "b")) {
             x <- gsub(piece, "\u25cf", x)
         } else {
             x <- gsub(piece, "f\u25cf", x)
         }
     }
-    if (!is.na(piece <- str_extract(x, character_class(unicode_chess_white)))) {
-        rank <- str_which(unicode_chess_white, piece) + 1
-        if (!str_detect(x, "[RKGBYW]")) {
-            suit <- 6
-        }
-        cfg <- "chess2"
-        if (str_detect(x, "b")) {
-            x <- gsub(piece, "\u25cf", x)
-        } else {
-            x <- gsub(piece, "f\u25cf", x)
-        }
-    }
+    # dominoes
     if (!is.na(tile <- str_extract(x, character_class(unicode_dominoes)))) {
         if (tile %in% c("\U0001f030", "\U0001f062"))
             x <- gsub(tile, "b", x)
         else
             x <- gsub(tile, "", x)
-        rank <- tile2rank[[tile]] + 1L
-        suit <- tile2suit[[tile]] + 1L
+        rank <- ppdf::domino_rank(tile) + 1L
+        suit <- ppdf::domino_suit(tile) + 1L
         if (!is.na(angle))
-            angle <- (angle + tile2angle[[tile]]) %% 360
+            angle <- (angle + ppdf::domino_angle(tile)) %% 360
         else
-            angle <- tile2angle[[tile]]
+            angle <- ppdf::domino_angle(tile)
         if (!is.na(col <- str_extract(x, "[RKGBYW]"))) {
             x <- gsub(col, "", x)
             if (is.na(cfg)) {
@@ -294,7 +293,7 @@ complete_piece <- function(df, std_piece_spec) {
     }
     if (is.na(df$rank)) {
         if (df$piece == "board") {
-            df$rank <- switch(df$cfg, 
+            df$rank <- switch(df$cfg,
                 go = 19L,
                 marbles = 4L,
                 8L)

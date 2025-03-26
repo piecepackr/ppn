@@ -1,77 +1,55 @@
-unicode_dice <- c("\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685")
-# excludes card back
-unicode_cards <- c(intToUtf8(utf8ToInt("\U0001f0a1") + 0:13, multiple = TRUE), # spades
-                   intToUtf8(utf8ToInt("\U0001f0b1") + 0:13, multiple = TRUE), # hearts
-                   intToUtf8(utf8ToInt("\U0001f0c1") + 0:13, multiple = TRUE), # diamonds
-                   intToUtf8(utf8ToInt("\U0001f0d1") + 0:13, multiple = TRUE), # clubs
+uc_seq <- function(glyph, seq) {
+    intToUtf8(utf8ToInt(glyph) + seq, multiple = TRUE)
+}
+
+unicode_dice <- uc_seq("\u2680", 0:5)
+
+unicode_cards <- c(uc_seq("\U0001f0a1", 0:13), # spades
+                   uc_seq("\U0001f0b1", 0:13), # hearts
+                   uc_seq("\U0001f0c1", 0:13), # diamonds
+                   uc_seq("\U0001f0d1", 0:13), # clubs
                    "\U0001f0bf", "\U0001f0cf", "\U0001f0df", # jokers
-                   intToUtf8(utf8ToInt("\U0001f0e0") + 0:21, multiple = TRUE)) # trumps
+                   uc_seq("\U0001f0e0", 0:21), # trumps
+                   "\U0001f0a0") # card back
+
 card2rank <- list()
 for (r in 1:14) {
     card2rank[[unicode_cards[r]]] <- r
-    card2rank[[unicode_cards[r+14]]] <- r
-    card2rank[[unicode_cards[r+28]]] <- r
-    card2rank[[unicode_cards[r+42]]] <- r
+    card2rank[[unicode_cards[r+14L]]] <- r
+    card2rank[[unicode_cards[r+28L]]] <- r
+    card2rank[[unicode_cards[r+42L]]] <- r
 }
-card2rank[[unicode_cards[57]]] <- 15
-card2rank[[unicode_cards[58]]] <- 15
-card2rank[[unicode_cards[59]]] <- 15
-card2rank[[unicode_cards[60]]] <- 22
+card2rank[[unicode_cards[57L]]] <- 15L
+card2rank[[unicode_cards[58L]]] <- 15L
+card2rank[[unicode_cards[59L]]] <- 15L
+card2rank[[unicode_cards[60L]]] <- 22L
 for (r in 1:21) {
-    card2rank[[unicode_cards[r+60]]] <- r
+    card2rank[[unicode_cards[r+60L]]] <- r
 }
+card2rank[[unicode_cards[82L]]] <- NA_integer_
+
 card2suit <- list()
 for (r in 1:14) {
-    card2suit[[unicode_cards[r]]] <- 2
-    card2suit[[unicode_cards[r+14]]] <- 1
-    card2suit[[unicode_cards[r+28]]] <- 4
-    card2suit[[unicode_cards[r+42]]] <- 3
+    card2suit[[unicode_cards[r]]] <- 2L
+    card2suit[[unicode_cards[r+14L]]] <- 1L
+    card2suit[[unicode_cards[r+28L]]] <- 4L
+    card2suit[[unicode_cards[r+42L]]] <- 3L
 }
-card2suit[[unicode_cards[57]]] <- 4
-card2suit[[unicode_cards[58]]] <- 2
-card2suit[[unicode_cards[59]]] <- 1
-card2suit[[unicode_cards[60]]] <- 5
+card2suit[[unicode_cards[57L]]] <- 4L # 3rd "red" joker
+card2suit[[unicode_cards[58L]]] <- 2L # 1st "black" joker
+card2suit[[unicode_cards[59L]]] <- 1L # 2nd "white" joker
+card2suit[[unicode_cards[60L]]] <- 5L
 for (r in 1:21) {
-    card2suit[[unicode_cards[r+60]]] <- 5
+    card2suit[[unicode_cards[r+60L]]] <- 5L
 }
+card2suit[[unicode_cards[82L]]] <- NA_integer_
 
-unicode_dominoes <- intToUtf8(utf8ToInt("\U0001f030") + 0:99, multiple = TRUE)
-ranks <- c(NA_integer_, rep(0L, 7), # 0H
-           0L, rep(1L, 6), # 1H
-           0:1, rep(2L, 5), # 2H
-           0:2, rep(3L, 4), # 3H
-           0:3, rep(4L, 3), # 4H
-           0:4, rep(5L, 2), # 5H
-           0:5, 6L) # 6H
-ranks <- c(ranks, ranks)
-suits <- c(NA_integer_, 0:6, # 0H
-           rep(1L, 2), 2:6, # 1H
-           rep(2L, 3), 3:6,
-           rep(3L, 4), 4:6,
-           rep(4L, 5), 5:6,
-           rep(5L, 6), 6L,
-           rep(6L, 7))
-suits <- c(suits, suits)
-angles <- c(90, rep(90, 7),  # 0H
-            rep(270, 1), rep(90, 6), # 1H
-            rep(270, 2), rep(90, 5), # 2H
-            rep(270, 3), rep(90, 4), # 3H
-            rep(270, 4), rep(90, 3), # 4H
-            rep(270, 5), rep(90, 2), # 5H
-            rep(270, 6), rep(90, 1)) # 6H
-angles <- c(angles, angles - 90)
-tile2rank <- list()
-tile2suit <- list()
-tile2angle <- list()
-for (i in seq_along(unicode_dominoes)) {
-    d <- unicode_dominoes[i]
-    tile2rank[[d]] <- ranks[i]
-    tile2suit[[d]] <- suits[i]
-    tile2angle[[d]] <- angles[i]
-}
-# chess
-unicode_chess_black <- c("\u265f", "\u265e", "\u265d", "\u265c", "\u265b", "\u265a")
-unicode_chess_white <- c("\u2659", "\u2658", "\u2657", "\u2656", "\u2655", "\u2654")
+unicode_dominoes <- uc_seq("\U0001f030", 0:99)
+
+unicode_chess_black <- uc_seq("\u265f", seq.int(0L, -5L))
+unicode_chess_white <- uc_seq("\u2659", seq.int(0L, -5L))
+unicode_chess_pieces <- c(uc_seq("\u2654", 0:11),
+                          uc_seq("\U0001fa00", seq.int(0L, 4L * 16L + 8L - 1L)))
 
 # built-in macros
 macros <- list(H = "\u2665", S = "\u2660", C = "\u2663", D = "\u2666",
@@ -105,8 +83,7 @@ color_suits <- c("R", "K", "G", "B", "Y", "W")
 
 save(unicode_dice,
      unicode_cards, card2rank, card2suit,
-     unicode_dominoes, tile2rank, tile2suit, tile2angle,
-     unicode_chess_black,
-     unicode_chess_white,
+     unicode_dominoes,
+     unicode_chess_pieces,
      color_suits, macros,
      file = "R/sysdata.rda", version = 2)

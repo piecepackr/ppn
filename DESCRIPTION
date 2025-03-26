@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: ppn
 Type: Package
 Title: Portable Piecepack Notation Parser
-Version: 0.2.0-3
+Version: 0.2.0-4
 Authors@R: c(person("Trevor L.", "Davis", role=c("aut", "cre"),
              email="trevor.l.davis@gmail.com",
              comment = c(ORCID = "0000-0001-6341-4639")))
@@ -16,7 +16,7 @@ Imports:
     affiner,
     bracer (>= 1.2),
     dplyr,
-    ppdf (>= 0.1.0-4),
+    ppdf (>= 0.2.0-15),
     rlang,
     snakecase,
     stringr,
