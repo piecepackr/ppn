@@ -12,6 +12,7 @@ tmp
 .*.epub
 .*.gif
 .*.pdf
+.*.swo
 ^.appveyor.yml$
 ^codecov.yml$
 ^.lintr$

@@ -14,7 +14,9 @@ New features
 
   + `alquerque_parser()`
   + `default_parser()`
+  + `go_parser()`
   + `marble_parser()`
+  + `morris_parser()`
 
 Bug fixes and minor improvements
 --------------------------------

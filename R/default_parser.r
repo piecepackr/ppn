@@ -18,7 +18,7 @@ default_options <- function() {
 #' @return A named list of data frames with parsed game states.
 #' @rdname ppn_parsers
 #' @export
-default_parser <- function(movetext = character(), 
+default_parser <- function(movetext = character(),
                            metadata = list(),
                            ...,
                            scale_factor = NULL,
@@ -36,19 +36,38 @@ default_parser <- function(movetext = character(),
 
 #' @rdname ppn_parsers
 #' @export
-alquerque_parser <- function(movetext = character(), 
-                             metadata = list(), ...) {
+alquerque_parser <- function(movetext = character(),
+                             metadata = list(),
+                             ...) {
     local_options(ppn.default_colored_bit_cfg = "alquerque")
     default_parser(movetext, metadata, ..., default_system = "alquerque")
 }
 
 #' @rdname ppn_parsers
 #' @export
-marble_parser <- function(movetext = character(), 
+go_parser <- function(movetext = character(),
+                      metadata = list(),
+                      ...) {
+    local_options(ppn.default_colored_bit_cfg = "go")
+    default_parser(movetext, metadata, ..., default_system = "go")
+}
+
+#' @rdname ppn_parsers
+#' @export
+marble_parser <- function(movetext = character(),
                           metadata = list(),
                           ...) {
     local_options(ppn.default_colored_bit_cfg = "marbles")
     default_parser(movetext, metadata, ..., default_system = "marbles")
+}
+
+#' @rdname ppn_parsers
+#' @export
+morris_parser <- function(movetext = character(),
+                          metadata = list(),
+                          ...) {
+    local_options(ppn.default_colored_bit_cfg = "morris")
+    default_parser(movetext, metadata, ..., default_system = "morris")
 }
 
 df_none <- function() {

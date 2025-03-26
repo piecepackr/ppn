@@ -3,7 +3,9 @@
 \name{default_parser}
 \alias{default_parser}
 \alias{alquerque_parser}
+\alias{go_parser}
 \alias{marble_parser}
+\alias{morris_parser}
 \title{Movetext parsers}
 \usage{
 default_parser(
@@ -16,7 +18,11 @@ default_parser(
 
 alquerque_parser(movetext = character(), metadata = list(), ...)
 
+go_parser(movetext = character(), metadata = list(), ...)
+
 marble_parser(movetext = character(), metadata = list(), ...)
+
+morris_parser(movetext = character(), metadata = list(), ...)
 }
 \arguments{
 \item{movetext}{A named character vector of move text.}
