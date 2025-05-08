@@ -16,7 +16,7 @@ Imports:
     affiner,
     bracer (>= 1.2),
     dplyr,
-    ppdf (>= 0.2.0-15),
+    ppdf (>= 0.2.0-16),
     rlang,
     snakecase,
     stringr,

@@ -14,6 +14,7 @@ default_options <- function() {
 #' @param metadata A named list of metadata
 #' @param ... Should be empty for `default_parser()`.  Otherwise passed to `default_parser()`.
 #' @param scale_factor How many inches a coordinate unit is worth.
+#' @param cell_width Width of checker/chess board cell.  Either `1` or `2`.
 #' @param default_system Default game system to use for setup functions.
 #' @return A named list of data frames with parsed game states.
 #' @rdname ppn_parsers
@@ -45,6 +46,42 @@ alquerque_parser <- function(movetext = character(),
 
 #' @rdname ppn_parsers
 #' @export
+checker_parser <- function(movetext = character(),
+                           metadata = list(),
+                           ...,
+                           cell_width = 2) {
+    stopifnot(cell_width == 1 || cell_width == 2)
+    local_options(ppdf.checker_cell_width = cell_width,
+                  ppdf.chess_cell_width = cell_width,
+                  ppn.default_checker_cfg = paste0("checkers", cell_width),
+                  ppn.default_chess_cfg = paste0("chess", cell_width))
+    default_parser(movetext, metadata, ..., default_system = "checker")
+}
+
+#' @rdname ppn_parsers
+#' @export
+chess_parser <- function(movetext = character(),
+                         metadata = list(),
+                         ...,
+                         cell_width = 2) {
+    stopifnot(cell_width == 1 || cell_width == 2)
+    local_options(ppdf.checker_cell_width = cell_width,
+                  ppdf.chess_cell_width = cell_width,
+                  ppn.default_checker_cfg = paste0("checkers", cell_width),
+                  ppn.default_chess_cfg = paste0("chess", cell_width))
+    default_parser(movetext, metadata, ..., default_system = "chess")
+}
+
+#' @rdname ppn_parsers
+#' @export
+domino_parser <- function(movetext = character(),
+                          metadata = list(),
+                          ...) {
+    default_parser(movetext, metadata, ..., default_system = "domino")
+}
+
+#' @rdname ppn_parsers
+#' @export
 go_parser <- function(movetext = character(),
                       metadata = list(),
                       ...) {
@@ -68,6 +105,15 @@ morris_parser <- function(movetext = character(),
                           ...) {
     local_options(ppn.default_colored_bit_cfg = "morris")
     default_parser(movetext, metadata, ..., default_system = "morris")
+}
+
+#' @rdname ppn_parsers
+#' @export
+tarot_parser <- function(movetext = character(),
+                         metadata = list(),
+                         ...) {
+    local_options(ppn.default_colored_bit_cfg = "playing_cards_tarot")
+    default_parser(movetext, metadata, ..., default_system = "tarot")
 }
 
 df_none <- function() {
