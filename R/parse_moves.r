@@ -187,7 +187,7 @@ standardize_piece_spec <- function(piece_spec) {
             angle <- (angle + ppdf::chess_angle(piece)) %% 360
         else
             angle <- ppdf::chess_angle(piece)
-        cfg <- "chess2"
+        cfg <- getOption("ppn.default_chess_cfg", "chess2")
         # Turn into bit
         if (str_detect(x, "b")) {
             x <- gsub(piece, "\u25cf", x)
@@ -241,7 +241,9 @@ complete_piece <- function(df, std_piece_spec) {
         if (str_detect(simple, "[RKGBYW]")) {
             df$cfg <- switch(df$piece,
                              bit = switch(str_extract(simple, "[smc]"),
-                                          s = "go", c = "checkers2", m = "meeples",
+                                          s = "go",
+                                          c = getOption("ppn.default_checker_cfg", "checkers2"),
+                                          m = "meeples",
                                           getOption("ppn.default_colored_bit_cfg",
                                                     abort(str_glue("Don't know proper cfg for piece '{simple}'"),
                                                           class = "infer_piece"))),
@@ -249,8 +251,12 @@ complete_piece <- function(df, std_piece_spec) {
                              pyramid = "icehouse_pieces",
                              tile = paste0("dominoes_",
                                            switch(str_extract(simple, "[RKGBYW]"),
-                                                  R = "red", K = "black", G = "green",
-                                                  B = "blue", Y = "yellow", W = "white")),
+                                                  R = "red",
+                                                  K = "black",
+                                                  G = "green",
+                                                  B = "blue",
+                                                  Y = "yellow",
+                                                  W = "white")),
                              abort(str_glue("Don't know proper cfg for piece '{simple}'"),
                                    class = "infer_piece")
             )
@@ -259,13 +265,15 @@ complete_piece <- function(df, std_piece_spec) {
         } else if (df$piece == "bit") {
             df$cfg <- "go"
         } else if (df$piece == "board") {
-            df$cfg <- "checkers2"
+            df$cfg <- getOption("ppn.default_checker_cfg", "checkers2")
         } else {
             df$cfg <- "piecepack"
         }
     }
     if (str_detect(simple, "u")) {
         df$cfg <- switch(df$cfg,
+                         chess1 = "chess1",
+                         checkers1 = "checkers1",
                          chess2 = "chess1",
                          checkers2 = "checkers1",
                          piecepack = "subpack",

@@ -14,9 +14,13 @@ New features
 
   + `alquerque_parser()`
   + `default_parser()`
+  + `checker_parser()`
+  + `chess_parser()`
+  + `domino_parser()`
   + `go_parser()`
   + `marble_parser()`
   + `morris_parser()`
+  + `tarot_parser()`
 
 Bug fixes and minor improvements
 --------------------------------

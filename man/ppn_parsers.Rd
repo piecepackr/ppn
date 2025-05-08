@@ -3,9 +3,13 @@
 \name{default_parser}
 \alias{default_parser}
 \alias{alquerque_parser}
+\alias{checker_parser}
+\alias{chess_parser}
+\alias{domino_parser}
 \alias{go_parser}
 \alias{marble_parser}
 \alias{morris_parser}
+\alias{tarot_parser}
 \title{Movetext parsers}
 \usage{
 default_parser(
@@ -18,11 +22,19 @@ default_parser(
 
 alquerque_parser(movetext = character(), metadata = list(), ...)
 
+checker_parser(movetext = character(), metadata = list(), ..., cell_width = 2)
+
+chess_parser(movetext = character(), metadata = list(), ..., cell_width = 2)
+
+domino_parser(movetext = character(), metadata = list(), ...)
+
 go_parser(movetext = character(), metadata = list(), ...)
 
 marble_parser(movetext = character(), metadata = list(), ...)
 
 morris_parser(movetext = character(), metadata = list(), ...)
+
+tarot_parser(movetext = character(), metadata = list(), ...)
 }
 \arguments{
 \item{movetext}{A named character vector of move text.}
@@ -34,6 +46,8 @@ morris_parser(movetext = character(), metadata = list(), ...)
 \item{scale_factor}{How many inches a coordinate unit is worth.}
 
 \item{default_system}{Default game system to use for setup functions.}
+
+\item{cell_width}{Width of checker/chess board cell.  Either \code{1} or \code{2}.}
 }
 \value{
 A named list of data frames with parsed game states.
