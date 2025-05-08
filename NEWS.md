@@ -1,5 +1,5 @@
-ppn 0.2.0 (development)
-=======================
+ppn 0.2.1
+=========
 
 Deprecated features
 -------------------
