@@ -22,7 +22,7 @@ parse_moves <- function(text, df = NULL, state = create_state(df)) {
     }
     moves <- c(list(SetupFn.=""), moves)
     comments <- c(list(SetupFn.=""), comments)
-    if (any(duplicated(names(dfs)))) warning("Non-unique MoveNumbers")
+    if (anyDuplicated(names(dfs))) warning("Non-unique MoveNumbers")
     names(moves) <- names(dfs)
     names(comments) <- names(dfs)
     for (i in seq_along(dfs)) attr(dfs[[i]], "scale_factor") <- state$scale_factor

@@ -1,3 +1,8 @@
+ppn 0.2.2 (development)
+=======================
+
+* No user-facing changes.
+
 ppn 0.2.1
 =========
 
