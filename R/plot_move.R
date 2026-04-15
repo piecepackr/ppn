@@ -9,16 +9,35 @@
 #' @return An invisible list of the dimensions of the image, as a side effect saves a graphic
 #' @import grDevices
 #' @export
-plot_move <- function(game, file = NULL,  move = NULL, annotate = TRUE, ...,
-                      .f = piecepackr::grid.piece, cfg = NULL, envir = NULL,
-                      width = NULL, height = NULL, ppi = 72,
-                      bg = "white", annotation_scale = NULL) {
-    assert_suggested("piecepackr")
-    df <- get_df_from_move(game, move)
-    piecepackr::render_piece(
-        df, file = file, ...,
-        .f = .f, cfg = cfg, envir = envir,
-        width = width, height = height, ppi = ppi, bg = bg,
-        annotate = annotate, annotation_scale = NULL
-    )
+plot_move <- function(
+	game,
+	file = NULL,
+	move = NULL,
+	annotate = TRUE,
+	...,
+	.f = piecepackr::grid.piece,
+	cfg = NULL,
+	envir = NULL,
+	width = NULL,
+	height = NULL,
+	ppi = 72,
+	bg = "white",
+	annotation_scale = NULL
+) {
+	assert_suggested("piecepackr")
+	df <- get_df_from_move(game, move)
+	piecepackr::render_piece(
+		df,
+		file = file,
+		...,
+		.f = .f,
+		cfg = cfg,
+		envir = envir,
+		width = width,
+		height = height,
+		ppi = ppi,
+		bg = bg,
+		annotate = annotate,
+		annotation_scale = NULL
+	)
 }
