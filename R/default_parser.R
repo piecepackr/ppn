@@ -1,5 +1,5 @@
 default_options <- function() {
-    list(ppn.default_colored_bit_cfg = NULL)
+	list(ppn.default_colored_bit_cfg = NULL)
 }
 
 #' Movetext parsers
@@ -19,174 +19,181 @@ default_options <- function() {
 #' @return A named list of data frames with parsed game states.
 #' @rdname ppn_parsers
 #' @export
-default_parser <- function(movetext = character(),
-                           metadata = list(),
-                           ...,
-                           scale_factor = NULL,
-                           default_system = "piecepack") {
-    check_dots_empty(...)
-    game_list <- list(metadata = metadata, movetext = movetext)
-    df <- get_starting_df(metadata, default_system)
-    if (!is.null(scale_factor))
-        attr(df, "scale_factor") <- scale_factor
-    state <- create_state(df, metadata)
-    move_list <- parse_moves(movetext, df = df, state = state)
-    game_list <- c(game_list, move_list)
-    game_list
+default_parser <- function(
+	movetext = character(),
+	metadata = list(),
+	...,
+	scale_factor = NULL,
+	default_system = "piecepack"
+) {
+	check_dots_empty(...)
+	game_list <- list(metadata = metadata, movetext = movetext)
+	df <- get_starting_df(metadata, default_system)
+	if (!is.null(scale_factor)) {
+		attr(df, "scale_factor") <- scale_factor
+	}
+	state <- create_state(df, metadata)
+	move_list <- parse_moves(movetext, df = df, state = state)
+	game_list <- c(game_list, move_list)
+	game_list
 }
 
 #' @rdname ppn_parsers
 #' @export
-alquerque_parser <- function(movetext = character(),
-                             metadata = list(),
-                             ...) {
-    local_options(ppn.default_colored_bit_cfg = "alquerque")
-    default_parser(movetext, metadata, ..., default_system = "alquerque")
+alquerque_parser <- function(movetext = character(), metadata = list(), ...) {
+	local_options(ppn.default_colored_bit_cfg = "alquerque")
+	default_parser(movetext, metadata, ..., default_system = "alquerque")
 }
 
 #' @rdname ppn_parsers
 #' @export
-checker_parser <- function(movetext = character(),
-                           metadata = list(),
-                           ...,
-                           cell_width = 2) {
-    stopifnot(cell_width == 1 || cell_width == 2)
-    local_options(ppdf.checker_cell_width = cell_width,
-                  ppdf.chess_cell_width = cell_width,
-                  ppn.default_checker_cfg = paste0("checkers", cell_width),
-                  ppn.default_chess_cfg = paste0("chess", cell_width))
-    default_parser(movetext, metadata, ..., default_system = "checker")
+checker_parser <- function(movetext = character(), metadata = list(), ..., cell_width = 2) {
+	stopifnot(cell_width == 1 || cell_width == 2)
+	local_options(
+		ppdf.checker_cell_width = cell_width,
+		ppdf.chess_cell_width = cell_width,
+		ppn.default_checker_cfg = paste0("checkers", cell_width),
+		ppn.default_chess_cfg = paste0("chess", cell_width)
+	)
+	default_parser(movetext, metadata, ..., default_system = "checker")
 }
 
 #' @rdname ppn_parsers
 #' @export
-chess_parser <- function(movetext = character(),
-                         metadata = list(),
-                         ...,
-                         cell_width = 2) {
-    stopifnot(cell_width == 1 || cell_width == 2)
-    local_options(ppdf.checker_cell_width = cell_width,
-                  ppdf.chess_cell_width = cell_width,
-                  ppn.default_checker_cfg = paste0("checkers", cell_width),
-                  ppn.default_chess_cfg = paste0("chess", cell_width))
-    default_parser(movetext, metadata, ..., default_system = "chess")
+chess_parser <- function(movetext = character(), metadata = list(), ..., cell_width = 2) {
+	stopifnot(cell_width == 1 || cell_width == 2)
+	local_options(
+		ppdf.checker_cell_width = cell_width,
+		ppdf.chess_cell_width = cell_width,
+		ppn.default_checker_cfg = paste0("checkers", cell_width),
+		ppn.default_chess_cfg = paste0("chess", cell_width)
+	)
+	default_parser(movetext, metadata, ..., default_system = "chess")
 }
 
 #' @rdname ppn_parsers
 #' @export
-domino_parser <- function(movetext = character(),
-                          metadata = list(),
-                          ...) {
-    default_parser(movetext, metadata, ..., default_system = "domino")
+domino_parser <- function(movetext = character(), metadata = list(), ...) {
+	default_parser(movetext, metadata, ..., default_system = "domino")
 }
 
 #' @rdname ppn_parsers
 #' @export
-go_parser <- function(movetext = character(),
-                      metadata = list(),
-                      ...) {
-    local_options(ppn.default_colored_bit_cfg = "go")
-    default_parser(movetext, metadata, ..., default_system = "go")
+go_parser <- function(movetext = character(), metadata = list(), ...) {
+	local_options(ppn.default_colored_bit_cfg = "go")
+	default_parser(movetext, metadata, ..., default_system = "go")
 }
 
 #' @rdname ppn_parsers
 #' @export
-marble_parser <- function(movetext = character(),
-                          metadata = list(),
-                          ...) {
-    local_options(ppn.default_colored_bit_cfg = "marbles")
-    default_parser(movetext, metadata, ..., default_system = "marbles")
+marble_parser <- function(movetext = character(), metadata = list(), ...) {
+	local_options(ppn.default_colored_bit_cfg = "marbles")
+	default_parser(movetext, metadata, ..., default_system = "marbles")
 }
 
 #' @rdname ppn_parsers
 #' @export
-morris_parser <- function(movetext = character(),
-                          metadata = list(),
-                          ...) {
-    local_options(ppn.default_colored_bit_cfg = "morris")
-    default_parser(movetext, metadata, ..., default_system = "morris")
+morris_parser <- function(movetext = character(), metadata = list(), ...) {
+	local_options(ppn.default_colored_bit_cfg = "morris")
+	default_parser(movetext, metadata, ..., default_system = "morris")
 }
 
 #' @rdname ppn_parsers
 #' @export
-tarot_parser <- function(movetext = character(),
-                         metadata = list(),
-                         ...) {
-    local_options(ppn.default_colored_bit_cfg = "playing_cards_tarot")
-    default_parser(movetext, metadata, ..., default_system = "tarot")
+tarot_parser <- function(movetext = character(), metadata = list(), ...) {
+	local_options(ppn.default_colored_bit_cfg = "playing_cards_tarot")
+	default_parser(movetext, metadata, ..., default_system = "tarot")
 }
 
 df_none <- function() {
-    tibble::tibble(piece_side = character(0L),
-                   suit = integer(0L), rank = integer(0L),
-                   cfg = character(0),
-                   x = numeric(0), y = numeric(0), angle = numeric(0))
+	tibble::tibble(
+		piece_side = character(0L),
+		suit = integer(0L),
+		rank = integer(0L),
+		cfg = character(0),
+		x = numeric(0),
+		y = numeric(0),
+		angle = numeric(0)
+	)
 }
 
 get_starting_df <- function(metadata, default_system = "piecepack") {
-    setup <- metadata$SetUp
-    if (!is.null(setup)) {
-        return(get_starting_df_from_field(setup, default_system))
-    }
-    game_type <- metadata$GameType
-    if (!is.null(game_type)) {
-        return(get_starting_df_from_field(game_type, default_system))
-    }
-    return(initialize_df(df_none()))
+	setup <- metadata$SetUp
+	if (!is.null(setup)) {
+		return(get_starting_df_from_field(setup, default_system))
+	}
+	game_type <- metadata$GameType
+	if (!is.null(game_type)) {
+		return(get_starting_df_from_field(game_type, default_system))
+	}
+	return(initialize_df(df_none()))
 }
 
 get_starting_df_from_field <- function(field, default_system = "piecepack") {
-    field0 <- field
-    df <- tryCatch({
-        if (is.character(field)) {
-            df <- ppdf::setup_by_name(field, default_system, getter = ppn_get)
-        } else if (is.list(field)) {
-            names(field) <- normalize_name(names(field))
-            if (!hasName(field, "system"))
-                field$system <- default_system
-            field$getter <- ppn_get
-            df <- do.call(ppdf::setup_by_name, field)
-        }
-        initialize_df(df)
-    }, error = function(e) {
-        if (is.list(field))
-            msg <- paste0("Couldn't process SetUp/GameType:\n", yaml::as.yaml(field0))
-        else
-            msg <- paste("Couldn't process SetUp/GameType:", field0)
-        msg <- c(msg, i = e$message)
-        abort(msg, class = "initialize_setup", parent = e)
-    })
-    return(df)
+	field0 <- field
+	df <- tryCatch(
+		{
+			if (is.character(field)) {
+				df <- ppdf::setup_by_name(field, default_system, getter = ppn_get)
+			} else if (is.list(field)) {
+				names(field) <- normalize_name(names(field))
+				if (!hasName(field, "system")) {
+					field$system <- default_system
+				}
+				field$getter <- ppn_get
+				df <- do.call(ppdf::setup_by_name, field)
+			}
+			initialize_df(df)
+		},
+		error = function(e) {
+			if (is.list(field)) {
+				msg <- paste0("Couldn't process SetUp/GameType:\n", yaml::as.yaml(field0))
+			} else {
+				msg <- paste("Couldn't process SetUp/GameType:", field0)
+			}
+			msg <- c(msg, i = e$message)
+			abort(msg, class = "initialize_setup", parent = e)
+		}
+	)
+	return(df)
 }
 
 ppn_get <- function(name) {
-    fn <- try(get(name, envir=getNamespace("ppdf")), silent = TRUE)
-    if (inherits(fn, "try-error"))
-        fn <- try(get(name, envir=getNamespace("piecenikr")), silent = TRUE)
-    if (inherits(fn, "try-error"))
-        fn <- tryCatch(dynGet(name), error = function(e) get(name))
-    fn
+	fn <- try(get(name, envir = getNamespace("ppdf")), silent = TRUE)
+	if (inherits(fn, "try-error")) {
+		fn <- try(get(name, envir = getNamespace("piecenikr")), silent = TRUE)
+	}
+	if (inherits(fn, "try-error")) {
+		fn <- tryCatch(dynGet(name), error = function(e) get(name))
+	}
+	fn
 }
 
 initialize_df <- function(df) {
-    df$id <- as.character(seq_len(nrow(df)))
-    if (!hasName(df, "angle")) df$angle <- 0
-    df$angle <- ifelse(is.na(df$angle), 0, df$angle)
-    df$rank <- ifelse(is.na(df$rank), 1L, df$rank)
-    df$suit <- ifelse(is.na(df$suit), 1L, df$suit)
-    if (is.null(df[["cfg"]])) df$cfg <- "piecepack"
-    df
+	df$id <- as.character(seq_len(nrow(df)))
+	if (!hasName(df, "angle")) {
+		df$angle <- 0
+	}
+	df$angle <- ifelse(is.na(df$angle), 0, df$angle)
+	df$rank <- ifelse(is.na(df$rank), 1L, df$rank)
+	df$suit <- ifelse(is.na(df$suit), 1L, df$suit)
+	if (is.null(df[["cfg"]])) {
+		df$cfg <- "piecepack"
+	}
+	df
 }
 
 create_state <- function(df, metadata = list()) {
-    if (!is.null(attr(df, "scale_factor"))) {
-        scale_factor <- attr(df, "scale_factor")
-    } else {
-        scale_factor <- 1.0
-    }
-    as.environment(list(df_move_start = df,
-                        macros = c(metadata$Macros, attr(df, "macros"), macros),
-                        max_id = nrow(df),
-                        active_id = character(),
-                        scale_factor = as.numeric(scale_factor)))
+	if (!is.null(attr(df, "scale_factor"))) {
+		scale_factor <- attr(df, "scale_factor")
+	} else {
+		scale_factor <- 1.0
+	}
+	as.environment(list(
+		df_move_start = df,
+		macros = c(metadata$Macros, attr(df, "macros"), macros),
+		max_id = nrow(df),
+		active_id = character(),
+		scale_factor = as.numeric(scale_factor)
+	))
 }
