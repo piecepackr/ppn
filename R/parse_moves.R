@@ -204,12 +204,12 @@ standardize_piece_spec <- function(piece_spec) {
 	if (!is.na(piece <- str_extract(x, character_class(c(unicode_chess_pieces))))) {
 		rank <- ppdf::chess_rank(piece) + 1L
 		if (!str_detect(x, "[RKGBYW]")) {
-			suit <- ppdf::chess_suit(piece)
+			suit <- ppdf::piece_suit(piece)
 		}
 		if (!is.na(angle)) {
-			angle <- (angle + ppdf::chess_angle(piece)) %% 360
+			angle <- (angle + ppdf::piece_angle(piece)) %% 360
 		} else {
-			angle <- ppdf::chess_angle(piece)
+			angle <- ppdf::piece_angle(piece)
 		}
 		cfg <- getOption("ppn.default_chess_cfg", "chess2")
 		# Turn into bit
@@ -226,12 +226,12 @@ standardize_piece_spec <- function(piece_spec) {
 		} else {
 			x <- gsub(tile, "", x)
 		}
-		rank <- ppdf::domino_rank(tile) + 1L
+		rank <- ppdf::piece_rank(tile) + 1L
 		suit <- ppdf::domino_suit(tile) + 1L
 		if (!is.na(angle)) {
-			angle <- (angle + ppdf::domino_angle(tile)) %% 360
+			angle <- (angle + ppdf::piece_angle(tile)) %% 360
 		} else {
-			angle <- ppdf::domino_angle(tile)
+			angle <- ppdf::piece_angle(tile)
 		}
 		if (!is.na(col <- str_extract(x, "[RKGBYW]"))) {
 			x <- gsub(col, "", x)
