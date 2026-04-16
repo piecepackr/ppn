@@ -1,7 +1,10 @@
 ppn 0.2.2 (development)
 =======================
 
-* No user-facing changes.
+Bug fixes and minor improvements
+--------------------------------
+
+* Eliminated use of deprecated `ppdf` functions.
 
 ppn 0.2.1
 =========
