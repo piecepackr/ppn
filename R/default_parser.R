@@ -40,6 +40,10 @@ default_parser <- function(
 
 #' @rdname ppn_parsers
 #' @export
+piecepack_parser <- default_parser
+
+#' @rdname ppn_parsers
+#' @export
 alquerque_parser <- function(movetext = character(), metadata = list(), ...) {
 	local_options(ppn.default_colored_bit_cfg = "alquerque")
 	default_parser(movetext, metadata, ..., default_system = "alquerque")

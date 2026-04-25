@@ -642,7 +642,7 @@ process_rotate_move <- function(df, text, state = create_state(df), clockwise = 
 }
 
 process_exclamation_move <- function(df, text, state = create_state(df)) {
-	piece_id <- str_sub(text, 2L, 2L)
+	piece_id <- str_sub(text, 2L)
 	process_hyphen_move(df, paste0(piece_id, "-<0,0>"), state)
 }
 

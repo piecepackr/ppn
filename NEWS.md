@@ -1,9 +1,17 @@
-ppn 0.2.2 (development)
+ppn 0.3.0 (development)
 =======================
+
+New features
+------------
+
+* We now export (and document their arguments) the following movetext parsers:
+
+  + `piecepack_parser()`
 
 Bug fixes and minor improvements
 --------------------------------
 
+* Fixes bug in `process_exclamation_move()` (e.g. `!PieceId` moves).
 * Eliminated use of deprecated `ppdf` functions.
 
 ppn 0.2.1
