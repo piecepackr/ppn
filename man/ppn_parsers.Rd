@@ -2,6 +2,7 @@
 % Please edit documentation in R/default_parser.R
 \name{default_parser}
 \alias{default_parser}
+\alias{piecepack_parser}
 \alias{alquerque_parser}
 \alias{checker_parser}
 \alias{chess_parser}
@@ -13,6 +14,14 @@
 \title{Movetext parsers}
 \usage{
 default_parser(
+  movetext = character(),
+  metadata = list(),
+  ...,
+  scale_factor = NULL,
+  default_system = "piecepack"
+)
+
+piecepack_parser(
   movetext = character(),
   metadata = list(),
   ...,

@@ -435,6 +435,9 @@ test_that("process_submove works as expected", {
 	expect_true(any(grepl("die_face", df$piece_side)))
 
 	expect_error(process_submove(df, "!"))
+	id_b2 <- df$id[df$x == 2 & df$y == 2]
+	df_b2 <- process_submove(df, "!b2")
+	expect_equal(tail(df_b2$id, 1L), id_b2)
 	expect_error(get_id_from_coords(df, "e5"))
 
 	df <- read_ppn(textConnection("1. S@a{1..6} M@a1 5a1-b1"))[[1]]$dfs[[2]]
