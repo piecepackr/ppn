@@ -931,3 +931,58 @@ test_that("ID computation works as expected", {
 		c("23..1", "24..1", "24..2", "30..3")
 	)
 })
+
+test_that("parsers work as expected", {
+	do.call(rlang::local_options, default_options())
+
+	ppn_movetext_parser <- function(name, game_type, movetext = character()) {
+		ppn <- paste0("---\nMovetextParser: ", name, "\nGameType: ", game_type, "\n...\n", movetext)
+		read_ppn(textConnection(ppn))[[1]]
+	}
+
+	# piecepack_parser is an alias for default_parser
+	g <- ppn_movetext_parser("Piecepack", "Four Field Kono")
+	expect_equal(nrow(g$dfs[[1]]), 20L)
+
+	# alquerque_parser: colored bits get "alquerque" cfg
+	df <- alquerque_parser(c("R●@a1"))$dfs[[2]]
+	expect_equal(df$cfg, "alquerque")
+	g <- ppn_movetext_parser("Alquerque", "Alquerque")
+	expect_equal(nrow(g$dfs[[1]]), 25L)
+
+	# checker_parser: checker bits get "checkers2" (default) or "checkers1" (cell_width=1)
+	expect_equal(checker_parser(c("Kc@a1"))$dfs[[2]]$cfg, "checkers2")
+	expect_equal(checker_parser(c("Kc@a1"), cell_width = 1)$dfs[[2]]$cfg, "checkers1")
+	g <- ppn_movetext_parser("Checker", "American Checkers")
+	expect_equal(nrow(g$dfs[[1]]), 25L)
+
+	# chess_parser: chess bits get "chess2" (default) or "chess1" (cell_width=1)
+	expect_equal(chess_parser(c("♚@e1"))$dfs[[2]]$cfg, "chess2")
+	expect_equal(chess_parser(c("♚@e1"), cell_width = 1)$dfs[[2]]$cfg, "chess1")
+	g <- ppn_movetext_parser("Chess", "International Chess")
+	expect_equal(nrow(g$dfs[[1]]), 33L)
+
+	# domino_parser: default system loads domino setup
+	g <- ppn_movetext_parser("Domino", "Fujisan")
+	expect_equal(nrow(g$dfs[[1]]), 19L)
+
+	# go_parser: colored bits get "go" cfg
+	df <- go_parser(c("R●@a1"))$dfs[[2]]
+	expect_equal(df$cfg, "go")
+	g <- ppn_movetext_parser("Go", "Go")
+	expect_equal(nrow(g$dfs[[1]]), 1L)
+
+	# marble_parser: colored bits get "marbles" cfg
+	df <- marble_parser(c("R●@a1"))$dfs[[2]]
+	expect_equal(df$cfg, "marbles")
+
+	# morris_parser: colored bits get "morris" cfg
+	df <- morris_parser(c("R●@a1"))$dfs[[2]]
+	expect_equal(df$cfg, "morris")
+	g <- ppn_movetext_parser("Morris", "Nine Mens Morris")
+	expect_equal(nrow(g$dfs[[1]]), 1L)
+
+	# tarot_parser: colored bits get "playing_cards_tarot" cfg
+	df <- tarot_parser(c("R●@a1"))$dfs[[2]]
+	expect_equal(df$cfg, "playing_cards_tarot")
+})
