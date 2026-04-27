@@ -337,3 +337,11 @@
                           
                           
 
+# Setup and GameType work as expected
+
+    Code
+      default_parser(c("1. `a'@b2"), meta_circular)
+    Condition
+      Error in `expand_macro_values()`:
+      ! Circular macro reference detected
+

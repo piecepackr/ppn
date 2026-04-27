@@ -908,6 +908,32 @@ test_that("Setup and GameType work as expected", {
 	expect_equal(df$suit, 1)
 	expect_equal(df$piece_side, "pawn_face")
 
+	# macro expanding to multiple submoves (e.g. chess castling)
+	meta_castle <- list(
+		GameType = "International Chess",
+		Macros = list("O-O" = "e1-g1 h1-f1")
+	)
+	g_castle <- default_parser(c("1. `O-O'"), meta_castle)
+	df_before <- g_castle$dfs[[1]]
+	df_after <- g_castle$dfs[[2]]
+	king_id <- df_before$id[near(df_before$x, 5) & near(df_before$y, 1)]
+	rook_id <- df_before$id[near(df_before$x, 8) & near(df_before$y, 1)]
+	expect_equal(df_after$x[df_after$id == king_id], 7)
+	expect_equal(df_after$x[df_after$id == rook_id], 6)
+
+	# recursive macro: macro value references another macro
+	meta_recursive <- list(Macros = list(sun = "S", sp = "`sun'p"))
+	df_recursive <- default_parser(c("1. `sp'@b2"), meta_recursive)$dfs[[2]]
+	expect_equal(df_recursive$piece_side, "pawn_face")
+	expect_equal(df_recursive$suit, 1L)
+
+	# circular macro reference is an error
+	meta_circular <- list(Macros = list(a = "`b'", b = "`a'"))
+	expect_snapshot(
+		error = TRUE,
+		default_parser(c("1. `a'@b2"), meta_circular)
+	)
+
 	none1 <- ""
 	df1 <- read_ppn(textConnection(none1))[[1]]$dfs[[1]]
 	expect_equal(nrow(df1), 0)

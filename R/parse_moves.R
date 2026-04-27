@@ -1170,10 +1170,39 @@ get_y <- function(coords) {
 	}
 }
 
+expand_macro_values <- function(macros) {
+	max_iter <- 100L
+	for (i in seq_len(max_iter)) {
+		changed <- FALSE
+		for (name in names(macros)) {
+			value <- macros[[name]]
+			ml <- str_locate_all(value, "`[^']+'")[[1L]]
+			if (nrow(ml) == 0L) {
+				next
+			}
+			for (r in rev(seq_len(nrow(ml)))) {
+				ref <- str_sub(value, ml[r, 1L] + 1L, ml[r, 2L] - 1L)
+				if (!is.null(macros[[ref]])) {
+					str_sub(value, ml[r, 1L], ml[r, 2L]) <- macros[[ref]]
+					changed <- TRUE
+				}
+			}
+			macros[[name]] <- value
+		}
+		if (!changed) {
+			break
+		}
+		if (i == max_iter) {
+			abort("Circular macro reference detected", class = "circular_macro")
+		}
+	}
+	macros
+}
+
 replace_macros <- function(df, text, state = create_state(df)) {
-	ml <- str_locate_all(text, "`[^']+'")[[1]]
+	ml <- str_locate_all(text, "`[^']+'")[[1L]]
 	for (r in rev(seq_len(nrow(ml)))) {
-		mtext <- str_sub(text, ml[r, 1] + 1, ml[r, 2] - 1)
+		mtext <- str_sub(text, ml[r, 1L] + 1L, ml[r, 2L] - 1L)
 		if (is.null(state$macros[[mtext]])) {
 			abort(paste("Macro", mtext, "is unknown"), class = "identify_macro")
 		}
