@@ -4,6 +4,7 @@ ppn 0.3.0 (development)
 New features
 ------------
 
+* Macros may now reference other macros (recursive macros).  Macro values are fully expanded at parse time; circular references produce an error.
 * We now export (and document their arguments) the following movetext parsers:
 
   + `piecepack_parser()`

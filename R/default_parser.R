@@ -195,7 +195,7 @@ create_state <- function(df, metadata = list()) {
 	}
 	as.environment(list(
 		df_move_start = df,
-		macros = c(metadata$Macros, attr(df, "macros"), macros),
+		macros = expand_macro_values(c(metadata$Macros, attr(df, "macros"), macros)),
 		max_id = nrow(df),
 		active_id = character(),
 		scale_factor = as.numeric(scale_factor)
